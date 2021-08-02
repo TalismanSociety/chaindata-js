@@ -4,7 +4,7 @@ const instance = () => {
   const chains = Chains()
   return {
     chains: async () => await chains.all(),
-    chain: async id => await chains.chainById(id),
+    chain: async (id, field=null) => await chains.chainById(id, field),
   }
 }
 

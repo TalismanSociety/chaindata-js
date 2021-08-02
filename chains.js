@@ -1,3 +1,4 @@
+import { get } from 'lodash'
 import Chain from './chain'
 import { fetchRawFileContents } from './util'
 
@@ -17,7 +18,7 @@ let Chains = () => {
   })
 
   // get a chain by ID
-  let chainById = async (id: number|string)  => {
+  let chainById = async (id: number|string, field: string|null)  => {
 
     id = id.toString()
 
@@ -39,9 +40,9 @@ let Chains = () => {
       await _chain.init()
       CACHED_CHAIN_SPECS[id] = _chain
     }
-    
+
     // & return
-    return _chain
+    return !!field ? get(_chain, field) : _chain
   }
 
   return {

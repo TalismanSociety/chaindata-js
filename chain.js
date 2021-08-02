@@ -1,7 +1,6 @@
 import { fetchRawFileContents } from './util'
 import { sourcePath } from './config'
 
-
 class Chain{
   id = null
   name = null
