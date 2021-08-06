@@ -18,11 +18,11 @@ let Chains = () => {
   })
 
   // get a chain by ID
-  let chainById = async (id: number|string, field: string|null)  => {
+  let chainById = async (id: number|string, field: string|array|null)  => {
 
     id = id.toString()
 
-    // get supoported chain manifest
+    // get supported chain manifest
     const chainManifest = await all()
 
     // get all available chain IDs
@@ -34,15 +34,26 @@ let Chains = () => {
     // check if we have the spec for the chain already cached locally
     let _chain = CACHED_CHAIN_SPECS[id]
 
-    // if not, go initialise it
+    // if not, go initialize it
     if(!_chain) {
       _chain = new Chain(id)
       await _chain.init()
       CACHED_CHAIN_SPECS[id] = _chain
     }
 
-    // & return
-    return !!field ? get(_chain, field) : _chain
+    if(!field){
+      return _chain
+    }else{
+      // make array to iterate
+      const fields = typeof field === 'string' ? [field] : field
+      const values = {}
+
+      fields.forEach(key => {
+        values[key] = get(_chain, field)
+      })
+
+      return values
+    }
   }
 
   return {

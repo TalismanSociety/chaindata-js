@@ -5,6 +5,7 @@ class Chain{
   id = null
   name = null
   description = null
+  nativeToken = null
   isRelay = false
   links = {}
   assets = {}
