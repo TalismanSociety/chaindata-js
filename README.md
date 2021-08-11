@@ -1,9 +1,9 @@
 # 📁 Chaindata JS Wrapper
-This repository is a JS helper library for the [@talisman/chaindata](https://github.com/talismansociety/chaindata) repository, enabling easy fetching of assets and config files for developers when building within the polkadot ecosystem.
+This repository is a JS helper library for the [@talismn/chaindata](https://github.com/talismansociety/chaindata) repository, enabling easy fetching of assets and config files for developers when building within the polkadot ecosystem.
 
 The goals of this repo are:
 
-1. Allow developers to easily use the @talisman/chaindata repository in applications
+1. Allow developers to easily use the @talismn/chaindata repository in applications
 2. Allow developers to discover availability of chains & chains assets
 
 >Note: This repoository is in development and may contain bugs and change without warning. Use at your own discretion.
@@ -15,7 +15,7 @@ The goals of this repo are:
 #### Installation
 
 ```bash
-yarn add @talisman/chaindata-js
+yarn add @talismn/chaindata-js
 ```
 
 #### Importing
