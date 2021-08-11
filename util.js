@@ -1,6 +1,6 @@
 import { sourcePath } from './config'
 
-export const fetchRawFileContents = async (path: string) => {
+export const fetchRawFileContents = async (path) => {
   return await fetch(`${sourcePath}${path}`).then(async r => {
     try {
       const result = await r.text()

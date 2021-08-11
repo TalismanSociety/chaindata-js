@@ -2,8 +2,8 @@ import { get } from 'lodash'
 import Chain from './chain'
 import { fetchRawFileContents } from './util'
 
-let CHAINS: object = {}
-let CACHED_CHAIN_SPECS: any = {}
+let CHAINS = {}
+let CACHED_CHAIN_SPECS = {}
 
 let Chains = () => {
 
@@ -18,7 +18,7 @@ let Chains = () => {
   })
 
   // get a chain by ID
-  let chainById = async (id: number|string, field: string|array|null)  => {
+  let chainById = async (id, field)  => {
 
     id = id.toString()
 
@@ -26,7 +26,7 @@ let Chains = () => {
     const chainManifest = await all()
 
     // get all available chain IDs
-    const chainIds: string[] = Object.keys(chainManifest)
+    const chainIds = Object.keys(chainManifest)
 
     // make sure we support the chain
     if(!chainIds.includes(id)) throw new Error('Chain not supported')

@@ -2,18 +2,16 @@ import { fetchRawFileContents } from './util'
 import { sourcePath } from './config'
 
 class Chain{
-  id = null
-  name = null
-  description = null
-  nativeToken = null
-  isRelay = false
-  links = {}
-  assets = {}
-  rpcs = []
-  status = 'INITIALIZED'
-
   constructor(id){
     this.id = id
+    this.name = null
+    this.description = null
+    this.nativeToken = null
+    this.isRelay = false
+    this.links = {}
+    this.assets = {}
+    this.rpcs = []
+    this.status = 'INITIALIZED'
   }
 
   async init(){
