@@ -31,8 +31,8 @@ class Chain{
   get asset(){
     return new Proxy(this, 
       {
-        get(target, key) {
-          const filename = target?.assets[key]
+        get: function(target, key) {
+          const filename = target && target.assets[key]
           return !!filename ? `${sourcePath}${target.id}/assets/${filename}` : null
         }
       }
