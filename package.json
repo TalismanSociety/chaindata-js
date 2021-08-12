@@ -1,6 +1,6 @@
 {
   "name": "@talismn/chaindata-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A JS indexing and lookup lib for easily fetching information from the @talismn/chaindata repo.",
   "repository": "https://github.com/TalismanSociety/chaindata-js.git",
   "author": "Talisman Devs <devs@talisman.community>",
