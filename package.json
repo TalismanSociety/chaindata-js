@@ -9,5 +9,6 @@
   "bugs": {
     "url": "https://github.com/TalismanSociety/chaindata-js/issues"
   },
-  "homepage": "https://talisman.community"
+  "homepage": "https://talisman.community",
+  "packageManager": "yarn@3.0.1"
 }
