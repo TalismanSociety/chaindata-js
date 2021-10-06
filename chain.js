@@ -1,8 +1,8 @@
-import { fetchRawFileContents } from './util'
-import { sourcePath } from './config'
+const { fetchRawFileContents } = require('./util')
+const { sourcePath } = require('./config')
 
-class Chain{
-  constructor(id){
+class Chain {
+  constructor(id) {
     this.id = id
     this.name = null
     this.description = null
@@ -14,30 +14,30 @@ class Chain{
     this.status = 'INITIALIZED'
   }
 
-  async init(){
+  async init() {
     this.status = 'HYDRATING'
     const manifest = await fetchRawFileContents(`${this.id}/manifest.json`)
 
-    this.assets = manifest.assets||{}
-    this.rpcs = manifest.rpcs||[]
+    this.assets = manifest.assets || {}
+    this.rpcs = manifest.rpcs || []
 
-    Object.keys(manifest).forEach( key => {
+    Object.keys(manifest).forEach((key) => {
       this[key] = manifest[key]
-    });
-    
+    })
+
     this.status = 'READY'
   }
 
-  get asset(){
-    return new Proxy(this, 
-      {
-        get: function(target, key) {
-          const filename = target && target.assets[key]
-          return !!filename ? `${sourcePath}${target.id}/assets/${filename}` : null
-        }
-      }
-    )
+  get asset() {
+    return new Proxy(this, {
+      get: function (target, key) {
+        const filename = target && target.assets[key]
+        return !!filename
+          ? `${sourcePath}${target.id}/assets/${filename}`
+          : null
+      },
+    })
   }
 }
 
-export default Chain
+module.exports = Chain

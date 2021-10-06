@@ -1,13 +1,15 @@
-import { sourcePath } from './config'
+const { sourcePath } = require('./config')
 
-export const fetchRawFileContents = async (path) => {
-  return await fetch(`${sourcePath}${path}`).then(async r => {
+const fetchRawFileContents = async (path) => {
+  return await fetch(`${sourcePath}${path}`).then(async (r) => {
     try {
       const result = await r.text()
       return JSON.parse(result.replace(/,(?!\s*?[{["'\w])/g, ''))
-    } catch(e) {
+    } catch (e) {
       // statements
-      console.log(e);
+      console.log(e)
     }
   })
 }
+
+module.exports = { fetchRawFileContents }
