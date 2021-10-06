@@ -16,7 +16,7 @@ export default class Chains {
   }
 
   // get a chain by ID
-  async chainById(id: string | number, field?: string) {
+  async chainById(id: string | number): Promise<Chain> {
     id = id.toString()
 
     // get supported chain manifest
@@ -29,27 +29,29 @@ export default class Chains {
     if (!chainIds.includes(id)) throw new Error('Chain not supported')
 
     // check if we have the spec for the chain already cached locally
-    let _chain = this.cachedChainSpecs[id]
+    let chain = this.cachedChainSpecs[id]
 
     // if not, go initialize it
-    if (!_chain) {
-      _chain = new Chain(id)
-      await _chain.init()
-      this.cachedChainSpecs[id] = _chain
+    if (!chain) {
+      chain = new Chain(id)
+      await chain.init()
+      this.cachedChainSpecs[id] = chain
     }
 
-    if (!field) {
-      return _chain
-    } else {
-      // make array to iterate
-      const fields = typeof field === 'string' ? [field] : field
-      const values = {}
+    return chain
+  }
 
-      fields.forEach(key => {
-        values[key] = get(_chain, field)
-      })
+  async chainFieldById(id: string | number, field: string): Promise<{ [key: string]: any }> {
+    const chain = await this.chainById(id)
 
-      return values
-    }
+    // make array to iterate
+    const fields = typeof field === 'string' ? [field] : field
+    const values = {}
+
+    fields.forEach(key => {
+      values[key] = get(chain, field)
+    })
+
+    return values
   }
 }
