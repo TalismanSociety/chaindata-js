@@ -2,6 +2,32 @@
   "name": "@talismn/chaindata-js",
   "version": "0.0.4",
   "description": "A JS indexing and lookup lib for easily fetching information from the @talismn/chaindata repo.",
+  "main": "./src/index.ts",
+  "types": "./dist/index.d.ts",
+  "browser": "./dist/index.js",
+  "exports": "./dist/index.js",
+  "scripts": {
+    "prepare": "husky install",
+    "pre-commit": "lint-staged",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon --watch src --ext js,ts --exec yarn prepack",
+    "build": "esbuild-node-tsc",
+    "build:types": "tsc --emitDeclarationOnly",
+    "prepack": "yarn build && yarn build:types"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.175",
+    "esbuild-node-tsc": "^1.6.1",
+    "husky": "^6.0.0",
+    "import-sort-style-module": "^6.0.0",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2",
+    "prettier-plugin-import-sort": "^0.0.7",
+    "typescript": "^4.3.5"
+  },
+  "files": [
+    "dist/**/*"
+  ],
   "repository": "https://github.com/TalismanSociety/chaindata-js.git",
   "author": "Talisman Devs <devs@talisman.community>",
   "keywords": [],
@@ -10,5 +36,21 @@
     "url": "https://github.com/TalismanSociety/chaindata-js/issues"
   },
   "homepage": "https://talisman.community",
-  "packageManager": "yarn@3.0.1"
+  "packageManager": "yarn@3.0.1",
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,html,css,scss}": "prettier --write"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "printWidth": 120,
+    "quoteProps": "consistent",
+    "semi": false,
+    "singleQuote": true
+  },
+  "importSort": {
+    ".js, .jsx, .ts, .tsx": {
+      "style": "module",
+      "parser": "typescript"
+    }
+  }
 }

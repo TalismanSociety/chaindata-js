@@ -1,29 +1,26 @@
-const { get } = require('lodash')
-const Chain = require('./chain')
-const { fetchRawFileContents } = require('./util')
+import { get } from 'lodash'
 
-let CHAINS = {}
-let CACHED_CHAIN_SPECS = {}
+import Chain from './chain'
+import { fetchRawFileContents } from './util'
 
-let Chains = () => {
+type ChainsManifest = { [key: string]: string }
+
+export default class Chains {
+  names: ChainsManifest | null = null
+  cachedChainSpecs: { [key: string]: Chain } = {}
+
   // fetch the chain manifest
-  let all = async () =>
-    new Promise(async (resolve, reject) => {
-      try {
-        if (!Object.entries(CHAINS).length)
-          CHAINS = await fetchRawFileContents(`manifest.json`)
-        resolve(CHAINS)
-      } catch (e) {
-        reject(e)
-      }
-    })
+  async all(): Promise<ChainsManifest> {
+    if (this.names === null) this.names = await fetchRawFileContents(`manifest.json`)
+    return this.names as ChainsManifest
+  }
 
   // get a chain by ID
-  let chainById = async (id, field) => {
+  async chainById(id: string | number, field?: string) {
     id = id.toString()
 
     // get supported chain manifest
-    const chainManifest = await all()
+    const chainManifest = await this.all()
 
     // get all available chain IDs
     const chainIds = Object.keys(chainManifest)
@@ -32,13 +29,13 @@ let Chains = () => {
     if (!chainIds.includes(id)) throw new Error('Chain not supported')
 
     // check if we have the spec for the chain already cached locally
-    let _chain = CACHED_CHAIN_SPECS[id]
+    let _chain = this.cachedChainSpecs[id]
 
     // if not, go initialize it
     if (!_chain) {
       _chain = new Chain(id)
       await _chain.init()
-      CACHED_CHAIN_SPECS[id] = _chain
+      this.cachedChainSpecs[id] = _chain
     }
 
     if (!field) {
@@ -48,18 +45,11 @@ let Chains = () => {
       const fields = typeof field === 'string' ? [field] : field
       const values = {}
 
-      fields.forEach((key) => {
+      fields.forEach(key => {
         values[key] = get(_chain, field)
       })
 
       return values
     }
   }
-
-  return {
-    all,
-    chainById,
-  }
 }
-
-module.exports = Chains
