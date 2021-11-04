@@ -8,6 +8,7 @@ export default class Chain {
   name: string | null = null
   description: string | null = null
   nativeToken: string | null = null
+  tokenDecimals: number | null = null
   isRelay: boolean = false
   links: { [key: string]: string } = {}
   assets: { [key: string]: string } = {}
