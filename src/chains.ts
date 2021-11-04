@@ -26,7 +26,7 @@ export default class Chains {
     const chainIds = Object.keys(chainManifest)
 
     // make sure we support the chain
-    if (!chainIds.includes(id)) throw new Error('Chain not supported')
+    if (!chainIds.includes(id)) throw new Error(`Chain ${id} not supported`)
 
     // check if we have the spec for the chain already cached locally
     let chain = this.cachedChainSpecs[id]
