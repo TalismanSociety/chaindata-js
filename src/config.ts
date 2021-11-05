@@ -1,1 +1,1 @@
-export const sourcePath = 'https://raw.githubusercontent.com/TalismanSociety/chainspecs/master/'
+export const sourcePath = 'https://raw.githubusercontent.com/TalismanSociety/chaindata/multi-relay-chain-future/'

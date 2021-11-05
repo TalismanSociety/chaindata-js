@@ -8,8 +8,8 @@ const instance = () => {
   const chains = new Chains()
   return {
     chains: async () => await chains.all(),
-    chain: async (id: string | number): Promise<Chain> => await chains.chainById(id),
-    chainField: async (id: string | number, field: string) => await chains.chainFieldById(id, field),
+    chain: async (id: string): Promise<Chain> => await chains.chainById(id),
+    chainField: async (id: string, field: string) => await chains.chainFieldById(id, field),
   }
 }
 

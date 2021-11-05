@@ -16,7 +16,7 @@ export default class Chains {
   }
 
   // get a chain by ID
-  async chainById(id: string | number): Promise<Chain> {
+  async chainById(id: string): Promise<Chain> {
     id = id.toString()
 
     // get supported chain manifest
@@ -41,7 +41,7 @@ export default class Chains {
     return chain
   }
 
-  async chainFieldById(id: string | number, field: string): Promise<{ [key: string]: any }> {
+  async chainFieldById(id: string, field: string): Promise<{ [key: string]: any }> {
     const chain = await this.chainById(id)
 
     // make array to iterate

@@ -4,7 +4,7 @@ import { fetchRawFileContents } from './util'
 export type Status = 'INITIALIZED' | 'HYDRATING' | 'READY'
 
 export default class Chain {
-  id: string | number
+  id: string
   name: string | null = null
   description: string | null = null
   nativeToken: string | null = null
@@ -15,13 +15,14 @@ export default class Chain {
   rpcs: string[] = []
   status: Status = 'INITIALIZED'
 
-  constructor(id: string | number) {
+  constructor(id: string) {
     this.id = id
   }
 
   async init() {
     this.status = 'HYDRATING'
-    const manifest = await fetchRawFileContents(`${this.id}/manifest.json`)
+    const manifestPath = `${chaindirpath(this.id)}/manifest.json`
+    const manifest = await fetchRawFileContents(manifestPath)
 
     Object.keys(manifest).forEach(key => {
       this[key] = manifest[key]
@@ -38,8 +39,14 @@ export default class Chain {
     return new Proxy(this, {
       get: function (target: Chain, key: string) {
         const filename = target && target.assets[key]
-        return filename ? `${sourcePath}${target.id}/assets/${filename}` : null
+        return filename ? `${sourcePath}${chaindirpath(target.id)}/assets/${filename}` : null
       },
     })
   }
 }
+
+const chaindirpath = (id: string): string =>
+  id
+    .split('-')
+    .map((idPart, index) => (index === 0 ? idPart : `parathreads/${idPart}`))
+    .join('/')
