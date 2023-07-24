@@ -1,3 +1,7 @@
+>
+> This repo (chaindata-js) is no longer maintained - head to the [chaindata repo](https://github.com/TalismanSociety/chaindata) to find up to date instructions on how to use chaindata.
+>
+
 # 📁 Chaindata JS Wrapper
 This repository is a JS helper library for the [@talismn/chaindata](https://github.com/talismansociety/chaindata) repository, enabling easy fetching of assets and config files for developers when building within the polkadot ecosystem.
 
